@@ -20,10 +20,10 @@ public class AccountService {
 
         // id, email 중복체크
         if (accountRepository.existsById(account.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate id.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID that already exists.");
         }
         if (accountRepository.existsByEmail(account.getEmail())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate email.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email that already exists.");
         }
 
         account.setRole(Role.USER);
