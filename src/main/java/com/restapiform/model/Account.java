@@ -11,23 +11,19 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class Account extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
-
-    @NotEmpty(message = "id is required parameter")
-    @Column(nullable = false)
-    private String id;
-
-    @NotEmpty(message = "password is required parameter")
-    @Column(nullable = false)
-    private String password;
+    private Long id;
 
     @NotEmpty(message = "email is required parameter")
     @Column(nullable = false)
     private String email; // 사용자 이메일
+
+    @NotEmpty(message = "password is required parameter")
+    @Column(nullable = false)
+    private String password;
 
     @NotEmpty(message = "name is required parameter")
     @Column(nullable = false)
@@ -36,9 +32,6 @@ public class Account {
     @NotEmpty(message = "birth is required parameter")
     @Column(nullable = false)
     private String birth; // 사용자 생년월일 8자리 ex) 19950803
-
-    @Column
-    private String isEmailCheck; // 인증완료 : T, 미완료 : F
 
     @Enumerated(EnumType.STRING)
     private Role role; // 기본회원
