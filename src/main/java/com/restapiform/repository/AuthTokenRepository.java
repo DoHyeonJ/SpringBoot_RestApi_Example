@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface AuthTokenRepository extends JpaRepository<AuthToken, Long> {
-    Optional<AuthToken> findById(Long aLong);
+    Optional<AuthToken> findIdByToken(String token);
 }
