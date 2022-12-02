@@ -1,4 +1,4 @@
-package com.restapiform.controller;
+package com.restapiform.Account;
 
 import com.restapiform.model.Account;
 import com.restapiform.service.AccountService;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,7 +24,7 @@ public class AccountController {
      * @return Account
      */
     @PostMapping
-    public ResponseEntity<Account> addAccount(@RequestBody Account account) {
+    public ResponseEntity<Account> addAccount(@RequestBody @Valid Account account) {
         Account newAccount = accountService.addAccount(account);
         return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
     }
