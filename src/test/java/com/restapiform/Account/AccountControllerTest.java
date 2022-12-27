@@ -65,7 +65,7 @@ public class AccountControllerTest {
 
         // when
         mockMvc.perform(post("/account")
-                .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(input)))
 
         // then
