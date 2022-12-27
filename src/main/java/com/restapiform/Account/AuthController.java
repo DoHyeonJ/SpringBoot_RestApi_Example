@@ -1,4 +1,4 @@
-package com.restapiform.controller;
+package com.restapiform.Account;
 
 import com.restapiform.model.AuthToken;
 import com.restapiform.model.Role;
