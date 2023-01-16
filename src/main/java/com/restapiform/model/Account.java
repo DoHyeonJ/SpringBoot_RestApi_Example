@@ -18,7 +18,7 @@ public class Account extends BaseTimeEntity{
     private Long id;
 
     @NotEmpty(message = "email is required parameter")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email; // 사용자 이메일
 
     @NotEmpty(message = "password is required parameter")

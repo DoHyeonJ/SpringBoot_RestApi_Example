@@ -1,4 +1,4 @@
-package com.restapiform.Account;
+package com.restapiform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapiform.MockMvcTest;
