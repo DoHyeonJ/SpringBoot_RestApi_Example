@@ -1,5 +1,6 @@
 package com.restapiform.service;
 
+import com.restapiform.config.JwtTokenProvider;
 import com.restapiform.model.Account;
 import com.restapiform.model.AuthToken;
 import com.restapiform.model.Role;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,7 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final AuthTokenRepository authTokenRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * 신규 회원 추가
@@ -63,5 +66,22 @@ public class AccountService {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 로그인 Jwt 토큰 발급
+     * @param account 로그인 시도 정보
+     * @return jwt token
+     */
+    public String getJwtToken(Map<String, String> account) {
+        Account loginAccount = accountRepository.findByEmail(account.get("email"))
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 계정정보 입니다."));
+        if (!passwordEncoder.matches(account.get("password"), loginAccount.getPassword())) {
+            throw new IllegalArgumentException("잘못된 패스워드 입니다.");
+        }
+        if (loginAccount.getRole().equals(Role.NOT_PERMITTED)) {
+            return "메일 인증이 되지않은 계정입니다. 메일인증을 진행해주시기 바랍니다.";
+        }
+        return jwtTokenProvider.createToken(loginAccount.getUsername(), loginAccount.getRole());
     }
 }
