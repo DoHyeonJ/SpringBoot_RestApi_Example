@@ -35,6 +35,7 @@ public class AccountService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email that already exists.");
         }
 
+        // 일반 인증 전 회원 Role 설정
         account.setRole(Role.NOT_PERMITTED);
         // password encode
         account.setPassword(passwordEncoder.encode(account.getPassword()));

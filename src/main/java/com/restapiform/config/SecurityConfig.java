@@ -1,12 +1,16 @@
 package com.restapiform.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
     @Bean
@@ -14,11 +18,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // rest api 는 서버에 인증정보 보관하지않아서 csrf 를 비활성화 해도 무관함 (세션대신 토큰을 사용함)
-        http.csrf().disable();
-        http.authorizeHttpRequests().antMatchers("/account").permitAll();
+        http.csrf().disable() // rest api 는 서버에 인증정보 보관하지않아서 csrf 를 비활성화 해도 무관함 (세션대신 토큰을 사용함)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
+                .anyRequest().permitAll() // 모든 접근 허용
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+
         return http.build();
     }
 }
