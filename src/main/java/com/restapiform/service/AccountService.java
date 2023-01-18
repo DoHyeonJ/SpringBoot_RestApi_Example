@@ -43,7 +43,7 @@ public class AccountService {
         // password encode
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         // 메일 인증 토큰 전송
-        emailService.sendTokenMail(account);
+        String token = emailService.sendTokenMail(account);
 
         return accountRepository.save(account);
     }

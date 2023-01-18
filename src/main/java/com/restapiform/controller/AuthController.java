@@ -26,7 +26,7 @@ public class AuthController {
      * @param token 인증토큰
      * @return 인증 회원정보
      */
-    @GetMapping("/signup/{token}")
+    @GetMapping("/email/{token}")
     public ResponseEntity<Optional<AuthToken>> emailAuthCheck(@PathVariable(value = "token") String token) {
         Optional<AuthToken> authToken = authService.emailTokenCheck(token);
         return accountService.updateAccountRole(authToken, Role.USER);

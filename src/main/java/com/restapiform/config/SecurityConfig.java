@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .anyRequest().permitAll() // 모든 접근 허용
+                .antMatchers("/accounts/**", "/auth/**").permitAll()
+                .anyRequest().authenticated() // 그외 페이지 인증 사용자만 접근가능
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다

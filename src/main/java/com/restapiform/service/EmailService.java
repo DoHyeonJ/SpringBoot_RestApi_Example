@@ -33,7 +33,6 @@ public class EmailService {
     /**
      * 회원인증 토큰 메일전송
      * @param account
-     * @throws MessagingException
      */
     public String sendTokenMail(Account account) {
         String uuid = makeTokenAndSave(account);
@@ -47,7 +46,7 @@ public class EmailService {
 
         emailValues.put("name", account.getName() + " 님");
         emailValues.put("service_name", ConstVariable.SERVICE_NAME);
-        emailValues.put("url", ConstVariable.MAIN_URL + "/auth/signup/" + uuid);
+        emailValues.put("url", ConstVariable.MAIN_URL + "/auth/email/" + uuid);
         sendTemplateMessage(email, emailValues);
 
         return uuid;
@@ -74,7 +73,6 @@ public class EmailService {
      * 템플릿 메일 전송
      * @param email
      * @param emailValues
-     * @throws MessagingException
      */
     private void sendTemplateMessage(Email email, HashMap<String, String> emailValues) {
         try{
