@@ -11,9 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @MockMvcTest
@@ -36,11 +36,9 @@ public class AccountControllerTest {
         Map<String, String> input = new HashMap<>();
         input.put("email", "");
         input.put("password", "1234567890");
-        input.put("name", "test");
-        input.put("birth", "19950803");
 
         // when
-        mockMvc.perform(post("/account")
+        mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(input)))
 
@@ -60,11 +58,9 @@ public class AccountControllerTest {
         Map<String, String> input = new HashMap<>();
         input.put("email", "wyehgus@naver.com");
         input.put("password", "1234567890");
-        input.put("name", "test");
-        input.put("birth", "19950803");
 
         // when
-        mockMvc.perform(post("/account")
+        mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(input)))
 
@@ -73,4 +69,23 @@ public class AccountControllerTest {
         .andDo(print());
     }
 
+    @DisplayName("회원 로그인")
+    @Test
+    void login() throws Exception {
+        // TODO 토큰 인증이 되어야 예외를 안던지는데?
+        completeToSignUpAccount();
+        // given
+        Map<String, String> input = new HashMap<>();
+        input.put("email", "wyehgus@naver.com");
+        input.put("password", "1234567890");
+
+        // when
+        mockMvc.perform(post("/accounts/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
+
+        // then
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 }

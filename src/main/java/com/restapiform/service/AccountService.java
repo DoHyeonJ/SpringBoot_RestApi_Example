@@ -74,6 +74,7 @@ public class AccountService {
      * @return jwt token
      */
     public String getJwtToken(Map<String, String> account) {
+        // TODO 예외처리 controller 단에서 가능하게 리팩토링 필요
         Account loginAccount = accountRepository.findByEmail(account.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 계정정보 입니다."));
         if (!passwordEncoder.matches(account.get("password"), loginAccount.getPassword())) {

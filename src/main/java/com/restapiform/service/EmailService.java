@@ -44,7 +44,6 @@ public class EmailService {
 
         HashMap<String, String> emailValues = new HashMap<>();
 
-        emailValues.put("name", account.getName() + " 님");
         emailValues.put("service_name", ConstVariable.SERVICE_NAME);
         emailValues.put("url", ConstVariable.MAIN_URL + "/auth/email/" + uuid);
         sendTemplateMessage(email, emailValues);

@@ -30,14 +30,6 @@ public class Account extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @NotEmpty(message = "name is required parameter")
-    @Column(nullable = false)
-    private String name; // 사용자 명
-
-    @NotEmpty(message = "birth is required parameter")
-    @Column(nullable = false)
-    private String birth; // 사용자 생년월일 8자리 ex) 19950803
-
     @Enumerated(EnumType.STRING)
     private Role role; // 기본회원
 
