@@ -1,4 +1,4 @@
-package com.restapiform.Account;
+package com.restapiform.controller;
 
 import com.restapiform.model.AuthToken;
 import com.restapiform.model.Role;
@@ -21,7 +21,12 @@ public class AuthController {
     private final AuthService authService;
     private final AccountService accountService;
 
-    @GetMapping("/signup/{token}")
+    /**
+     * 회원가입 메일인증
+     * @param token 인증토큰
+     * @return 인증 회원정보
+     */
+    @GetMapping("/email/{token}")
     public ResponseEntity<Optional<AuthToken>> emailAuthCheck(@PathVariable(value = "token") String token) {
         Optional<AuthToken> authToken = authService.emailTokenCheck(token);
         return accountService.updateAccountRole(authToken, Role.USER);
