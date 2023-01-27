@@ -3,9 +3,11 @@ package com.restapiform.service;
 import com.restapiform.config.JwtTokenProvider;
 import com.restapiform.model.Account;
 import com.restapiform.model.AuthToken;
+import com.restapiform.model.Profile;
 import com.restapiform.model.Role;
 import com.restapiform.repository.AccountRepository;
 import com.restapiform.repository.AuthTokenRepository;
+import com.restapiform.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ public class AccountService {
     private final EmailService emailService;
     private final AuthTokenRepository authTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final ProfileRepository profileRepository;
 
     /**
      * 신규 회원 추가
@@ -45,7 +48,14 @@ public class AccountService {
         // 메일 인증 토큰 전송
         String token = emailService.sendTokenMail(account);
 
-        return accountRepository.save(account);
+        Account newAccount = accountRepository.save(account);
+
+        // 신규 회원 추가시 프로필도 같이 추가시켜줌
+        Profile newProfile = new Profile();
+        newProfile.setAccount(newAccount);
+        profileRepository.save(newProfile);
+
+        return newAccount;
     }
 
     /**

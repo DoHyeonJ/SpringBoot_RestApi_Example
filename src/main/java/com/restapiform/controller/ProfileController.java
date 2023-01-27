@@ -1,18 +1,43 @@
 package com.restapiform.controller;
 
+import com.restapiform.model.Profile;
+import com.restapiform.service.ProfileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
 
-    @GetMapping
-    public String getProfile() {
-        // TODO JWT 로그인 토큰 권한 체크용
+    private final ProfileService profileService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Profile> getProfile(@PathVariable Long id, @RequestHeader Map<String, String> head) {
+        // TODO 프로필 봐도 되는 회원인지 체크해주는 과정 필요
+        // System.out.println(head.get("x-auth-token"));
+        return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public String createProfile() {
+        // TODO 프로필 생성
+        return "PROFILE TEST";
+    }
+
+    @PutMapping
+    public String updateProfile() {
+        // TODO 프로필 수정
+        return "PROFILE TEST";
+    }
+
+    @DeleteMapping
+    public String deleteProfile() {
+        // TODO 프로필 삭제
         return "PROFILE TEST";
     }
 

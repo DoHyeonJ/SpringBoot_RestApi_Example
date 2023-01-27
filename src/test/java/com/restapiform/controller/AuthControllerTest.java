@@ -34,7 +34,7 @@ public class AuthControllerTest {
         String token = emailService.makeTokenAndSave(account);
 
         // when
-        mockMvc.perform(get("/auth/signup/" + token))
+        mockMvc.perform(get("/auth/email/" + token))
 
         // then
         .andExpect(status().isOk())
