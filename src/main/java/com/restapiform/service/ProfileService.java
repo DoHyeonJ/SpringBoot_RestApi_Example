@@ -7,8 +7,6 @@ import com.restapiform.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
@@ -16,18 +14,14 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
     private final AccountRepository accountRepository;
 
-    public Profile getProfile(Long accountId) {
-        // todo service단에 존재여부 체크하는걸로 공통함수 만들어주기
-        Optional<Account> account = accountRepository.findById(accountId);
-        if (account.isPresent()) {
-            Optional<Profile> profile = profileRepository.findByAccount(account.get());
-            if (profile.isPresent()) {
-                return profile.get();
-            } else {
-                throw new IllegalArgumentException("존재하지 않는 프로필 입니다.");
-            }
-        } else {
-            throw new IllegalArgumentException("존재하지 않는 회원 입니다.");
-        }
+    /**
+     * 프로필 조회
+     * @param accountId 회원 고유번호
+     * @return 프로필 정보
+     * @throws Exception ex
+     */
+    public Profile getProfile(Long accountId) throws Exception {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new Exception("존재하지않는 회원입니다."));
+        return profileRepository.findByAccount(account).orElseThrow(() -> new Exception("존재하지않는 프로필입니다."));
     }
 }

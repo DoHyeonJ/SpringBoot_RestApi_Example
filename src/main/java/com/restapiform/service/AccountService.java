@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +27,7 @@ public class AccountService {
     private final AuthTokenRepository authTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final ProfileRepository profileRepository;
+    private final AuthService authService;
 
     /**
      * 신규 회원 추가
@@ -60,22 +60,16 @@ public class AccountService {
 
     /**
      * 회원 Role(권한) 수정
-     * @param authToken 인증토큰
+     * @param token 인증토큰
      * @param role 권한 Enum
      * @return Http 상태코드 + 토큰정보
      */
-    public ResponseEntity<Optional<AuthToken>> updateAccountRole(Optional<AuthToken> authToken, Role role) {
-
-        if (authToken.isPresent()) {
-            AuthToken selectAuthToken = authToken.get();
-            Optional<Account> account = accountRepository.findById(selectAuthToken.getId());
-            account.ifPresent(accountRole -> accountRole.setRole(role));
-
-            authTokenRepository.deleteById(selectAuthToken.getId()); // 인증 완료된 토큰 삭제
-            return new ResponseEntity<>(authToken, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<AuthToken> updateAccountRole(String token, Role role) throws Exception {
+        AuthToken authToken = authService.emailTokenCheck(token).orElseThrow(() -> new Exception("잘못된 인증 토큰입니다."));
+        Account account = accountRepository.findById(authToken.getId()).orElseThrow(() -> new Exception("잘못된 인증 토큰입니다."));
+        account.setRole(role);
+        authTokenRepository.deleteById(authToken.getId()); // 인증 완료된 토큰 삭제
+        return new ResponseEntity<>(authToken, HttpStatus.OK);
     }
 
     /**
@@ -85,6 +79,7 @@ public class AccountService {
      */
     public String getJwtToken(Map<String, String> account) {
         // TODO 예외처리 controller 단에서 가능하게 리팩토링 필요
+        // TODO 패스워드 틀렸을 경우 예외처리가 아니라 앞단에서 판단해서 처리해줄수있게
         Account loginAccount = accountRepository.findByEmail(account.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 계정정보 입니다."));
         if (!passwordEncoder.matches(account.get("password"), loginAccount.getPassword())) {

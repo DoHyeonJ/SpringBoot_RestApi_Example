@@ -17,7 +17,7 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfile(@PathVariable Long id, @RequestHeader Map<String, String> head) {
+    public ResponseEntity<Profile> getProfile(@PathVariable Long id, @RequestHeader Map<String, String> head) throws Exception {
         // TODO 프로필 봐도 되는 회원인지 체크해주는 과정 필요
         // System.out.println(head.get("x-auth-token"));
         return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
