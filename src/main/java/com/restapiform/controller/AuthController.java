@@ -23,7 +23,7 @@ public class AuthController {
      * @return 인증 회원정보
      */
     @GetMapping("/email/{token}")
-    public ResponseEntity<AuthToken> emailAuthCheck(@PathVariable(value = "token") String token) {
+    public ResponseEntity<AuthToken> emailAuthCheck(@PathVariable(value = "token") String token) throws Exception {
         return accountService.updateAccountRole(token, Role.USER);
     }
 }

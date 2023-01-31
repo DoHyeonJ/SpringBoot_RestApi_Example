@@ -2,12 +2,11 @@ package com.restapiform.controller;
 
 import com.restapiform.model.Profile;
 import com.restapiform.service.ProfileService;
+import com.restapiform.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,11 +14,15 @@ import java.util.Map;
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final SecurityUtil securityUtil;
 
+    /**
+     * 프로필 조회
+     * @param id 조회 계정 정보
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfile(@PathVariable Long id, @RequestHeader Map<String, String> head) throws Exception {
-        // TODO 프로필 봐도 되는 회원인지 체크해주는 과정 필요
-        // System.out.println(head.get("x-auth-token"));
+    public ResponseEntity<Profile> getProfile(@PathVariable Long id) throws Exception {
+        securityUtil.checkAccountAuthentication(id); // 조회 권한 체크
         return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
     }
 
