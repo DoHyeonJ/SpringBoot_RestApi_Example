@@ -1,5 +1,6 @@
-package com.restapiform.config;
+package com.restapiform.config.filter;
 
+import com.restapiform.config.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

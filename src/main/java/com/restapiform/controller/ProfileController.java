@@ -2,7 +2,7 @@ package com.restapiform.controller;
 
 import com.restapiform.model.Profile;
 import com.restapiform.service.ProfileService;
-import com.restapiform.util.SecurityUtil;
+import com.restapiform.util.SecurityCommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileController {
 
     private final ProfileService profileService;
-    private final SecurityUtil securityUtil;
+    private final SecurityCommonUtil securityCommonUtil;
 
     /**
      * 프로필 조회
@@ -22,7 +22,6 @@ public class ProfileController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable Long id) throws Exception {
-        securityUtil.checkAccountAuthentication(id); // 조회 권한 체크
         return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
     }
 

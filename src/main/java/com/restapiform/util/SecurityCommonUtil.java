@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Security 공통사용 Util
  */
 @Component
-public class SecurityUtil {
+public class SecurityCommonUtil {
     /**
      * 로그인 회원 권한체크
      * 현재 로그인 회원과 요청

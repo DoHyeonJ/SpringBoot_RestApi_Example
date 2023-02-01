@@ -1,5 +1,6 @@
 package com.restapiform.config;
 
+import com.restapiform.config.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
