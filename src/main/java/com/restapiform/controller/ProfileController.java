@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/profile")
@@ -31,10 +33,14 @@ public class ProfileController {
         return "PROFILE TEST";
     }
 
-    @PutMapping
-    public String updateProfile() {
-        // TODO 프로필 수정
-        return "PROFILE TEST";
+    /**
+     * 프로필 수정
+     * @param id 조회 계정 정보
+     * @param data 프로필 수정 요청 데이터
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @RequestBody Map<String, String> data) throws Exception {
+        return new ResponseEntity<>(profileService.updateProfile(id, data), HttpStatus.OK);
     }
 
     @DeleteMapping
