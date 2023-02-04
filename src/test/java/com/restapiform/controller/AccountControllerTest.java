@@ -25,32 +25,6 @@ public class AccountControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    /**
-     * 신규 회원가입 실패 테스트
-     * @throws Exception
-     */
-    @DisplayName("신규 회원가입 실패 - 값이 비어있는 request body")
-    @Test
-    void requestBodyErrorToSignUpAccount() throws Exception {
-        // given
-        Map<String, String> input = new HashMap<>();
-        input.put("email", "");
-        input.put("password", "1234567890");
-
-        // when
-        mockMvc.perform(post("/accounts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(input)))
-
-                // then
-                .andExpect(status().isBadRequest())
-                .andDo(print());
-    }
-
-    /**
-     * 신규 회원가입 성공 테스트
-     * @throws Exception
-     */
     @DisplayName("신규 회원가입 성공")
     @Test
     void completeToSignUpAccount() throws Exception {
@@ -69,12 +43,48 @@ public class AccountControllerTest {
         .andDo(print());
     }
 
-    @DisplayName("회원 로그인")
+    @DisplayName("신규 회원가입 실패 - 중복된 이메일")
     @Test
-    void login() throws Exception {
-        // TODO 토큰 인증이 되어야 예외를 안던지는데?
-        completeToSignUpAccount();
+    void duplicateEmailErrorToSignUpAccount() throws Exception {
         // given
+        completeToSignUpAccount();
+        Map<String, String> input = new HashMap<>();
+        input.put("email", "wyehgus@naver.com");
+        input.put("password", "1234567890");
+
+        // when
+        mockMvc.perform(post("/accounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(input)))
+
+                // then
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @DisplayName("신규 회원가입 실패 - 값이 비어있는 request body")
+    @Test
+    void requestBodyErrorToSignUpAccount() throws Exception {
+        // given
+        Map<String, String> input = new HashMap<>();
+        input.put("email", "");
+        input.put("password", "1234567890");
+
+        // when
+        mockMvc.perform(post("/accounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(input)))
+
+                // then
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @DisplayName("회원 로그인 성공")
+    @Test
+    void completeToAccountLogin() throws Exception {
+        // given
+        completeToSignUpAccount(); // 회원가입
         Map<String, String> input = new HashMap<>();
         input.put("email", "wyehgus@naver.com");
         input.put("password", "1234567890");
@@ -86,6 +96,44 @@ public class AccountControllerTest {
 
         // then
                 .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("회원 로그인 실패 - 잘못된 계정정보")
+    @Test
+    void wrongAccountEmailErrorToAccountLogin() throws Exception {
+        // given
+        completeToSignUpAccount(); // 회원가입
+        Map<String, String> input = new HashMap<>();
+        input.put("email", "test@naver.com");
+        input.put("password", "1234567890");
+
+        // when
+        mockMvc.perform(post("/accounts/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(input)))
+
+                // then
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @DisplayName("회원 로그인 실패 - 값이 비어있는 request body")
+    @Test
+    void requestBodyErrorToAccountLogin() throws Exception {
+        // given
+        completeToSignUpAccount(); // 회원가입
+        Map<String, String> input = new HashMap<>();
+        input.put("email", "");
+        input.put("password", "1234567890");
+
+        // when
+        mockMvc.perform(post("/accounts/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(input)))
+
+                // then
+                .andExpect(status().isBadRequest())
                 .andDo(print());
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -79,11 +80,13 @@ public class AccountService {
      */
     public String getJwtToken(Map<String, String> account) {
         // TODO 예외처리 controller 단에서 가능하게 리팩토링 필요
-        // TODO 패스워드 틀렸을 경우 예외처리가 아니라 앞단에서 판단해서 처리해줄수있게
-        Account loginAccount = accountRepository.findByEmail(account.get("email"))
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 계정정보 입니다."));
+        Optional<Account> optionalAccount = accountRepository.findByEmail(account.get("email"));
+        if (optionalAccount.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 계정정보 입니다.");
+        }
+        Account loginAccount = optionalAccount.get();
         if (!passwordEncoder.matches(account.get("password"), loginAccount.getPassword())) {
-            throw new IllegalArgumentException("잘못된 패스워드 입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 패스워드 입니다.");
         }
         if (loginAccount.getRole().equals(Role.NOT_PERMITTED)) {
             return "메일 인증이 되지않은 계정입니다. 메일인증을 진행해주시기 바랍니다.";
