@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,17 +24,30 @@ public class AuthControllerTest {
     @Test
     void emailTokenCheck() throws Exception {
         // given
-        Map<String, String> input = new HashMap<>();
         Account account = new Account();
         account.setEmail("jdh7693@naver.com");
         account.setPassword("1234");
         String token = emailService.makeTokenAndSave(account);
 
         // when
-        mockMvc.perform(get("/auth/signup/" + token))
+        mockMvc.perform(get("/auth/email/" + token))
 
         // then
         .andExpect(status().isOk())
         .andDo(print());
+    }
+
+    @DisplayName("이메일 토큰 인증 실패 - 잘못된 토큰 인증")
+    @Test
+    void wrongTokenErrorToEmailTokenCheck() throws Exception {
+        // given
+        String token = "Wrong Token";
+
+        // when
+        mockMvc.perform(get("/auth/email/" + token))
+
+                // then
+                .andExpect(status().isBadRequest())
+                .andDo(print());
     }
 }
