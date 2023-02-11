@@ -2,7 +2,6 @@ package com.restapiform.controller;
 
 import com.restapiform.model.Profile;
 import com.restapiform.service.ProfileService;
-import com.restapiform.util.SecurityCommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import java.util.Map;
 public class ProfileController {
 
     private final ProfileService profileService;
-    private final SecurityCommonUtil securityCommonUtil;
 
     /**
      * 프로필 조회
