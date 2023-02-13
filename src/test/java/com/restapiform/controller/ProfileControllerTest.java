@@ -56,13 +56,26 @@ public class ProfileControllerTest {
         token = accountService.getJwtToken(input);
     }
 
+    @DisplayName("본인 프로필 조회 성공")
+    @Test
+    void getMyProfile() throws Exception {
+        // given
+
+        // when
+        mockMvc.perform(get("/profile"))
+
+                // then
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
     @DisplayName("프로필 조회 성공")
     @Test
     void getProfile() throws Exception {
         // given
 
         // when
-        mockMvc.perform(get("/profile/1").header("X-AUTH-TOKEN", token))
+        mockMvc.perform(get("/profile/1"))
 
         // then
         .andExpect(status().isOk())

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * 회원 조회 권한 인증 필터
+ * 회원 수정 권한 인증 필터
  */
 @RequiredArgsConstructor
 @WebFilter(urlPatterns = "/profile/*")
@@ -20,10 +20,13 @@ public class AccountAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String[] uriParameter = ((HttpServletRequest) request).getRequestURI().split("/");
-        try {
-            securityCommonUtil.checkAccountAuthentication(Long.valueOf(uriParameter[uriParameter.length-1]));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        // 조회를 제외한 항목들 필터처리
+        if (!((HttpServletRequest) request).getMethod().equals("GET")) {
+            try {
+                securityCommonUtil.checkAccountAuthentication(Long.valueOf(uriParameter[uriParameter.length-1]));
+            } catch (Exception e) {
+                throw new RuntimeException("수정 권한이 없습니다.");
+            }
         }
         chain.doFilter(request, response);
     }

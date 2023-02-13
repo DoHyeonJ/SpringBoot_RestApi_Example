@@ -4,6 +4,7 @@ import com.restapiform.model.Account;
 import com.restapiform.model.Profile;
 import com.restapiform.repository.AccountRepository;
 import com.restapiform.repository.ProfileRepository;
+import com.restapiform.util.SecurityCommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,14 @@ public class ProfileService {
 
     private final ProfileRepository profileRepository;
     private final AccountRepository accountRepository;
+    private final SecurityCommonUtil securityCommonUtil;
+
+    /**
+     * 나의 프로필 조회
+     */
+    public Profile getMyProfile() throws Exception {
+        return checkAccountAndProfile(securityCommonUtil.getLoginAccountInfo().getId());
+    }
 
     /**
      * 프로필 조회

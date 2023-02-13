@@ -17,6 +17,14 @@ public class ProfileController {
     private final ProfileService profileService;
 
     /**
+     * 나의 프로필 조회
+     */
+    @GetMapping
+    public ResponseEntity<Profile> getMyProfile() throws Exception {
+        return new ResponseEntity<>(profileService.getMyProfile(), HttpStatus.OK);
+    }
+
+    /**
      * 프로필 조회
      * @param id 조회 계정 정보
      */

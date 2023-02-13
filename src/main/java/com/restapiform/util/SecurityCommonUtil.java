@@ -15,9 +15,13 @@ public class SecurityCommonUtil {
      * @param id 접근 요청 정보
      */
     public void checkAccountAuthentication(Long id) throws Exception {
-        Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Account account = getLoginAccountInfo();
         if (!id.equals(account.getId())) {
             throw new Exception("접근 권한이 없는 계정입니다.");
         }
+    }
+
+    public Account getLoginAccountInfo() {
+        return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

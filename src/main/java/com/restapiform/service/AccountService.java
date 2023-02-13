@@ -8,6 +8,7 @@ import com.restapiform.model.Role;
 import com.restapiform.repository.AccountRepository;
 import com.restapiform.repository.AuthTokenRepository;
 import com.restapiform.repository.ProfileRepository;
+import com.restapiform.util.SecurityCommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class AccountService {
     private final JwtTokenProvider jwtTokenProvider;
     private final ProfileRepository profileRepository;
     private final AuthService authService;
+    private final SecurityCommonUtil securityCommonUtil;
 
     /**
      * 신규 회원 추가
@@ -92,5 +94,12 @@ public class AccountService {
             return "메일 인증이 되지않은 계정입니다. 메일인증을 진행해주시기 바랍니다.";
         }
         return jwtTokenProvider.createToken(loginAccount.getUsername(), loginAccount.getRole());
+    }
+
+    /**
+     * 로그인중인 회원 정보 반환
+     */
+    public Account getLoginAccountInfo() {
+        return securityCommonUtil.getLoginAccountInfo();
     }
 }
