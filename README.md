@@ -31,7 +31,7 @@ Swagger를 통해 API의 사양을 확인할 수 있습니다.
 git clone https://github.com/DoHyeonJ/SpringBoot_RestApi_Example.git
 ```
 
-1. 기본설정파일(properties) 값 설정 [resources/application.properties]
+2. 기본설정파일(properties) 값 설정 [resources/application.properties]
 
 ```markdown
 # JPA
@@ -59,7 +59,7 @@ spring.mail.password={password}
 
 - 인증 메일 전송용 SMTP 메일정보 설정 (위 예제는 gmail을 기준으로 작성되었으며 다른 email 사용시 해당 email기준에 맞추 설정해줘야합니다.)
 
-1. 상수값 설정 [com/restapiform/config/ConstVariable.java]
+3. 상수값 설정 [com/restapiform/config/ConstVariable.java]
 
 ```java
 public final class ConstVariable {
