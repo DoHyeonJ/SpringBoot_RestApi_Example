@@ -94,4 +94,4 @@ Name : Dohyeon Jo
 
 Email : jdh7693@naver.com
 
-Blog : [https://do-hyeon.tistory.com/269?category=974947](https://do-hyeon.tistory.com/269?category=974947)
+Blog : [https://do-hyeon.tistory.com](https://do-hyeon.tistory.com)
