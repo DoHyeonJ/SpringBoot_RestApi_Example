@@ -79,7 +79,7 @@ public final class ConstVariable {
 2. 메일인증 /auth/email/{token} [get] 호출
 3. 로그인 /accounts/login [post] 호출 → 메일인증 하지않았을경우 로그인 불가
 - 로그인 호출시 응답값으로 JWT 토큰을 응답합니다. 해당 토큰을 통해 프로필 조회가 가능해집니다.
-1. 프로필 조회 /profile/{id} [get] 호출 → Header에 토큰 담아야 조회 가능
+4. 프로필 조회 /profile/{id} [get] 호출 → Header에 토큰 담아야 조회 가능
 - ex) X-AUTH-TOKEN  {token}
 
 - Swagger 연동을 통해 요청, 응답 파라미터를 확인할 수 있습니다.
