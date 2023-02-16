@@ -34,8 +34,6 @@ public class ProfileControllerTest {
     private String token;
 
 
-
-    // TODO : ... 공통으로 사용되게 빼야됨 지저분함
     @BeforeEach // 초기화
     void initAccount() throws Exception {
         // 회원가입
