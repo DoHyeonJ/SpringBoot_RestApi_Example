@@ -1,8 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
 ## About The Project
 
 SpringBoot, JPA를 활용한 REST API 예제 입니다.
