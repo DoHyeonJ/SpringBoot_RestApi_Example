@@ -79,7 +79,6 @@ public class AccountService {
      * @return jwt token
      */
     public String getJwtToken(Map<String, String> account) {
-        // TODO 예외처리 controller 단에서 가능하게 리팩토링 필요
         Optional<Account> optionalAccount = accountRepository.findByEmail(account.get("email"));
         if (optionalAccount.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 계정정보 입니다.");

@@ -27,7 +27,9 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/accounts/**", "/auth/**").permitAll()
+                .antMatchers("/accounts/**", "/auth/**", "/swagger-resources/**", "/swagger-ui/**", "/v2/api-docs",  "/configuration/ui",
+                        "/swagger-resources", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
                 .anyRequest().authenticated() // 그외 페이지 인증 사용자만 접근가능
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

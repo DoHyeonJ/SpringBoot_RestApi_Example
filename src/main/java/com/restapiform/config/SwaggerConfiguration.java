@@ -20,8 +20,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Example API")
-                .description("Swagger 소개를 위한 example")
+                .title("Spring Boot Rest API - " + version)
+                .description("Spring Boot, JPA 를 활용한 REST API Project")
                 .build();
     }
 

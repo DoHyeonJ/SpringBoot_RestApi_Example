@@ -1,11 +1,13 @@
 package com.restapiform.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class AuthToken extends BaseTimeEntity{
 
     @Id
