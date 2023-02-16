@@ -1,6 +1,9 @@
-## About The Project
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
----
+## About The Project
 
 SpringBoot, JPA를 활용한 REST API 예제 입니다.
 
@@ -14,8 +17,6 @@ Swagger를 통해 API의 사양을 확인할 수 있습니다.
 
 ## Skil
 
----
-
 - Java
 - SpringBoot
 - Spring Security
@@ -26,8 +27,6 @@ Swagger를 통해 API의 사양을 확인할 수 있습니다.
 - Gmail SMTP
 
 ## Getting Started
-
----
 
 ### 프로젝트 실행 방법
 
@@ -81,8 +80,6 @@ public final class ConstVariable {
 
 ## Usage
 
----
-
 1. 회원가입 /accounts [post] 호출 → 메일인증 토큰 가입한 메일로 전송됨
 2. 메일인증 /auth/email/{token} [get] 호출
 3. 로그인 /accounts/login [post] 호출 → 메일인증 하지않았을경우 로그인 불가
@@ -97,8 +94,6 @@ public final class ConstVariable {
 - [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ## Contact
-
----
 
 Name : Dohyeon Jo
 
