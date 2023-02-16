@@ -39,7 +39,7 @@ public class EmailService {
         Email email = new Email();
         email.setTitle(ConstVariable.SERVICE_NAME + " 인증메일 입니다.");
         email.setAddress(account.getEmail());
-        email.setCcAddress(ccMail);
+        email.setCcAddress(ccMail); // 메일 참조 properties 의 메일로 설정됨
         email.setTemplate("confirm_email");
 
         HashMap<String, String> emailValues = new HashMap<>();

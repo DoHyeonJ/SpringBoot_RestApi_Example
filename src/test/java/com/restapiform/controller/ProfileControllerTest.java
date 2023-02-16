@@ -2,6 +2,7 @@ package com.restapiform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapiform.MockMvcTest;
+import com.restapiform.config.ConstVariable;
 import com.restapiform.model.Account;
 import com.restapiform.model.Role;
 import com.restapiform.repository.AccountRepository;
@@ -38,7 +39,7 @@ public class ProfileControllerTest {
     void initAccount() throws Exception {
         // 회원가입
         Map<String, String> input = new HashMap<>();
-        input.put("email", "wyehgus@naver.com");
+        input.put("email", ConstVariable.TEST_EMAIL);
         input.put("password", "1234567890");
 
         mockMvc.perform(post("/accounts")
@@ -76,7 +77,7 @@ public class ProfileControllerTest {
         input.put("birth", "19950803");
         input.put("description", "test account");
         input.put("gender", "man");
-        input.put("phone", "01085506941");
+        input.put("phone", "01012345678");
 
         // when
         mockMvc.perform(put("/profile/1")

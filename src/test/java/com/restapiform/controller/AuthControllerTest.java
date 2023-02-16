@@ -1,6 +1,7 @@
 package com.restapiform.controller;
 
 import com.restapiform.MockMvcTest;
+import com.restapiform.config.ConstVariable;
 import com.restapiform.model.Account;
 import com.restapiform.service.EmailService;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +26,7 @@ public class AuthControllerTest {
     void emailTokenCheck() throws Exception {
         // given
         Account account = new Account();
-        account.setEmail("jdh7693@naver.com");
+        account.setEmail(ConstVariable.TEST_EMAIL);
         account.setPassword("1234");
         String token = emailService.makeTokenAndSave(account);
 

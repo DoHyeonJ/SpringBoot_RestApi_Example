@@ -2,6 +2,7 @@ package com.restapiform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapiform.MockMvcTest;
+import com.restapiform.config.ConstVariable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,13 @@ public class AccountControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+
     @DisplayName("신규 회원가입 성공")
     @Test
     void completeToSignUpAccount() throws Exception {
         // given
         Map<String, String> input = new HashMap<>();
-        input.put("email", "wyehgus@naver.com");
+        input.put("email", ConstVariable.TEST_EMAIL);
         input.put("password", "1234567890");
 
         // when
@@ -49,7 +51,7 @@ public class AccountControllerTest {
         // given
         completeToSignUpAccount();
         Map<String, String> input = new HashMap<>();
-        input.put("email", "wyehgus@naver.com");
+        input.put("email", ConstVariable.TEST_EMAIL);
         input.put("password", "1234567890");
 
         // when
@@ -86,7 +88,7 @@ public class AccountControllerTest {
         // given
         completeToSignUpAccount(); // 회원가입
         Map<String, String> input = new HashMap<>();
-        input.put("email", "wyehgus@naver.com");
+        input.put("email", ConstVariable.TEST_EMAIL);
         input.put("password", "1234567890");
 
         // when
@@ -105,7 +107,7 @@ public class AccountControllerTest {
         // given
         completeToSignUpAccount(); // 회원가입
         Map<String, String> input = new HashMap<>();
-        input.put("email", "test@naver.com");
+        input.put("email", "wrong" + ConstVariable.TEST_EMAIL);
         input.put("password", "1234567890");
 
         // when
