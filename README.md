@@ -1,3 +1,9 @@
+  <H1>Table of Contents</H1>
+    <li><a href="#about-the-project">About The Project</li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contact">Contact</a></li>
+
 # About The Project
 
 SpringBoot, JPA를 활용한 REST API 예제 입니다.
@@ -75,14 +81,16 @@ public final class ConstVariable {
 
 # Usage
 
-1. 회원가입 /accounts [post] 호출 → 메일인증 토큰 가입한 메일로 전송됨
-2. 메일인증 /auth/email/{token} [get] 호출
-3. 로그인 /accounts/login [post] 호출 → 메일인증 하지않았을경우 로그인 불가
+1. 회원가입 /accounts [POST] 호출 → 메일인증 토큰 가입한 메일로 전송됨
+2. 메일인증 /auth/email/{token} [GET] 호출
+3. 로그인 /accounts/login [POST] 호출 → 메일인증 하지않았을경우 로그인 불가
 - 로그인 호출시 응답값으로 JWT 토큰을 응답합니다. 해당 토큰을 통해 프로필 조회가 가능해집니다.
-4. 프로필 조회 /profile/{id} [get] 호출 → Header에 토큰 담아야 조회 가능
-- ex) X-AUTH-TOKEN  {token}
+4. 프로필 조회 /profile/{id} [GET] 호출 → Header에 토큰 담아야 조회 가능
+- ex) X-AUTH-TOKEN {token}
 
 - Swagger 연동을 통해 요청, 응답 파라미터를 확인할 수 있습니다.
+<img width="1474" alt="스크린샷 2023-02-17 오후 1 01 25" src="https://user-images.githubusercontent.com/59347101/219549041-36b1b9c1-4fff-4cc3-81eb-ad5d89ba48a2.png">
+
 
 (프로젝트 Run 상태에서 확인가능)
 
