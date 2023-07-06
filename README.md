@@ -29,8 +29,6 @@ Swagger를 통해 API의 사양을 확인할 수 있습니다.
 
 # Getting Started
 
-### 프로젝트 실행 방법
-
 1. 본인의 workspace에 git cloen 진행
 
 ```markdown
